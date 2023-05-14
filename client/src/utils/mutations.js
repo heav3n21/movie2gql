@@ -26,11 +26,9 @@ mutation addUser($username: String!, $email: String!, $password: String!){
 }
 `
 export const SAVE_BOOK = gql`
-mutation saveBook($author:[String!],$title: String!,$bookId: String, $image: String!,$link: String! ){
+mutation saveBook($author:[String!],$title: String!,$bookId: String!, $image: String!,$link: String! ){
     saveBook(author: $author, title: $title, bookId: $bookId, image: $image, link: $link){
-        user{
-            savedBooks
-        }
+       email
     }
 }
 

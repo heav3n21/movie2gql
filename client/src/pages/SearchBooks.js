@@ -17,20 +17,21 @@ import { useMutation } from '@apollo/client';
 import { QUERY_USER_BOOKS } from '../utils/queries';
 
 const SearchBooks = () => {
-  const [saveBook, {error}] = useMutation(SAVE_BOOK,{
-    update(cache, {data:{saveBook}}){
-      try {
-        const {books} = cache.readQuery({query: QUERY_USER_BOOKS});
-        cache.writeQuery({
-          query: QUERY_USER_BOOKS,
-          data: {books: [saveBook, ...books]}
-        })
+   const [saveBook, {error}] = useMutation(SAVE_BOOK//,{
+  //   update(cache, {data:{saveBook}}){
+  //     try {
+  //       const {books} = cache.readQuery({query: QUERY_USER_BOOKS});
+  //       cache.writeQuery({
+  //         query: QUERY_USER_BOOKS,
+  //         data: {books: [saveBook, ...books]}
+  //       })
         
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  })
+  //     } catch (e) {
+  //       console.log(e)
+  //     }
+  //   }
+  // }
+  )
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
@@ -68,7 +69,7 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
-        selfLink: book.selfLink
+        link: book.selfLink
       }));
 
       setSearchedBooks(bookData);
@@ -90,7 +91,8 @@ const SearchBooks = () => {
       return false;
     }
     
-    console.log(hello,'hi matthew');
+    console.log(bookToSave.Link,'hi matthew');
+
     try {
       const {data} = await saveBook({
         variables:{
@@ -98,11 +100,13 @@ const SearchBooks = () => {
           title: bookToSave.title,
           bookId:bookToSave.bookId,
           image: bookToSave.image,
-          link: bookToSave.selflink
+          link: bookToSave.link
         }
+        
     
       })
-  
+
+  console.log(data,'44');
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {

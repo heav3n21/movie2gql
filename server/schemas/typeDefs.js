@@ -21,8 +21,9 @@ type Auth{
     user: User
 }
 type Query {
-   user:[User]
-   users:[User]
+#    user:[User]
+   usersBooks(email: String!): User
+# #    me(ID: String!): User
   }
 type Mutation{
    addUser(username: String!, email:String!, password: String!):Auth

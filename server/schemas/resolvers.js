@@ -7,6 +7,10 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
+        async usersBooks(parent, {email},context){
+            const user = await User.findOne({_id: context.user._id})
+            return user
+        },
 
 
     },

@@ -1,9 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_USER_BOOKS = gql`
-query getUserBooks{
-    user{
-        books
+query usersBooks($email: String!){
+    usersBooks(email: $email){
+        savedBooks {
+      link
+    }   
     }
 }
 
